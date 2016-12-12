@@ -1,0 +1,137 @@
+{% extends "head.html" %}
+{% block content %}
+<script>
+$(document).ready(function(){
+    $("#accept_buy").validate({
+                rules: {
+                    address: {
+                        required: true,
+                    },
+                    debit: {
+                        required: true,
+                    },
+                    datepicker: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    address: {
+                        required: "Введите ваш адрес",
+                    },
+                    debit: {
+                        required: "Введите цифры с вашей кредитки",
+                    },
+                    datepicker: {
+                        required: "Введите дату доставки",
+                    }
+                }
+            });
+        });
+  </script>
+<div id="wrapper">
+    <div id="id01" class="w3-modal">
+        <div class="w3-modal-content">
+            <header class="w3-container w3-teal">
+                <span onclick="document.getElementById('id01').style.display='none'"
+                class="w3-closebtn">&times;</span>
+            <h2>Покупка</h2>
+        </header>
+
+        <div class="w3-container">
+         <form method="post" id="accept_buy">
+              <label>Адрес:</label>
+
+            <input class="w3-input" type="text" name="address">
+             <label>Дата:</label>
+             <input id="datepicker" class="w3-input" type="text" name="datepicker">
+                 <label>Номер вашей карты:</label>
+             <input class="w3-input" type="text" name="debit">
+             <!--<div id="datepicker"></div>-->
+             <input type="submit"  value="Оплатить">
+             </form>
+        </div>
+
+    <footer class="w3-container w3-teal">
+      <p>К оплате: <span class="all_price"></span> грн</p>
+    </footer>
+
+        </div>
+    </div>
+
+        {%if message %}
+        <div class="w3-panel w3-card-8 w3-yellow">
+            <p> {{message}} </p>
+        </div>
+
+        {% else %}
+
+    <table>
+    <tr>
+
+        <th>Название</th>
+        <th>Цена за единицу</th>
+        <th>Количество</th>
+        <th>Цена</th>
+
+        <th></th>
+    </tr>
+             {% set sum_bill = 0 %}
+            {% set address = 0 %}
+            {% for item in items %}
+             {% set fl = address + 1000 %}
+        <tr class="{{ address }}">
+            <td>{{ item['id'][1] }}</td>
+            <td>{{ item['id'][3] }}</td>
+            <td >{{ item['amount']}}</td>
+            <td name = "price">{{ item['price']}}</td>
+            <td class="btn"><i class="material-icons">close</i></td>
+
+            {% set address = address+ 1 %}
+        </tr>
+        {% endfor %}
+        </table>
+        <div id="datepicker"></div>
+        <div class="submit_buy">
+
+            Сумма к оплате:<span class="all_price"></span>
+            {% if session['logged_in'] %}
+            <button onclick="document.getElementById('id01').style.display='block'" class="w3-btn">Оплатить</button>
+            {% else %}
+            <button class="w3-btn" disabled>Оплатить</button>
+            Зарегестрируйтесь или войдите для покупки
+            {% endif %}
+            </div>
+
+
+        {% endif %}
+<script>
+    $(document).ready(function(){
+        var $c = $.cookie('list_to_buy').replace(/\\054/g, ',');
+        console.log($c)
+        var sum = 0
+        $("td[name='price']").each(function(){
+            sum+=parseInt(($(this).html()));
+            $('.all_price').html(sum);
+        });
+        console.log(sum)
+        var $s = jQuery.parseJSON($c);
+        $('.btn').on('click', function() {
+            $s.splice($(this).parent('tr').index()-1,1);
+            $(this).parent('tr').remove();
+            $.cookie.raw = true;
+            $.removeCookie('list_to_buy', { path: '/' });
+            var sum = 0
+            $("td[name='price']").each(function(){
+                sum+=parseInt(($(this).html()));
+                $('.all_price').html(sum);
+            });
+            if ($s.length > 0) {
+                $.cookie('list_to_buy', JSON.stringify($s),  { path: '/' });
+            }
+        });
+         $( "#datepicker" ).datepicker({dateFormat: "yy-mm-dd"});
+
+    });
+</script>
+</div>
+{% endblock %}

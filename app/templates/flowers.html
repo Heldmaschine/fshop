@@ -1,0 +1,15 @@
+{% extends "head.html" %}
+{% block content %}
+
+     <div id="wrapper">
+        {% include 'aside.html' %}
+            <div id="sect">
+             <ul class='catalog'>
+                 {% for flower in flowers %}
+                 {% set fl = 'img/flowers/' + flower[2] + '.jpg' %}
+                <li class = 'catalog'><a  href=item/{{flower[2]}} ><img src="{{url_for('static', filename=fl)}}" height="100%" width="100%"</img>{{ flower [0]}}</a><br>{{ flower [1]}} грн</li>
+                {% endfor %}
+            </div>
+        </div>
+
+{% endblock %}

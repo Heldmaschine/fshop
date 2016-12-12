@@ -1,0 +1,84 @@
+{% extends "head.html" %}
+{% block content %}
+
+<div id="wrapper2">
+    {% set fl = 'img/flowers/' + flower[2] + '.jpg' %}
+    <div class="flower"><img src="{{url_for('static', filename=fl)}}" height="100%" width="100%"</img></div>
+    <div class="description">
+        <h2>{{ flower[0] }}</h2>
+        Цена: <span class="price">{{ flower[1]  }} </span> грн <br>
+                К оплате: <span class="total_price"></span> грн
+                <form  id = "send_flower" method="post">
+                <input class="amount" type="number"  name="amount" value="1" >
+
+                    <input  type="submit" value="Добавить в корзину">
+                </form>
+                <button class="add">Добавить в букет</button>
+                <div id="message" class="w3-panel w3-orange" style="display: none">
+                     <span class="w3-closebtn" onclick="this.parentElement.style.display='none'">X</span>
+                        Вы добавили цветок к вашему букету.
+                </div>
+            </div>
+
+        </div>
+<script>
+    $(document).ready(function(){
+    $('.total_price').html(parseInt($('.price').html()));
+    $("#send_flower").validate({
+       rules:{
+            amount:{
+                required: true,
+                range: [1, 100]
+            },
+       },
+        messages:{
+            amount:{
+                required: "Введите количество от 1 до 100",
+                range: "Количество должно быть от 1 до 100",
+            },
+        }
+    });
+    $(".amount").change(function(){
+        var price = parseInt($('.price').html());
+        var amount = parseInt($('.amount').val());
+        var total_price = amount*price;
+        if (total_price <= 0) {
+            $('.total_price').html(0);
+         }
+        else {
+            $('.total_price').html(total_price);
+        }
+        console.log(total_price);
+    });
+    console.log(localStorage.getItem('flower'));
+    $('.add').click(function() {
+        if(localStorage.getItem('flowers') != null) {
+            var get_list = JSON.parse(localStorage.getItem('flowers'));
+            var fl = -1;
+            for(i=0;i<get_list.length;i++) {
+                if (get_list[i].link == location.pathname.split('/')[3]) {
+                    console.log('break', get_list[i].link, location.pathname.split('/')[3]);
+                    fl = i;
+                    break;
+                }
+                console.log('tut', get_list[i].link, location.pathname.split('/')[3]);
+            }
+            //console.log(get_list.indexOf({'link':location.pathname.split('/')[3], 'flower': $('h2').html()}));
+            if (fl == -1) {
+                get_list.push({'link':location.pathname.split('/')[3], 'flower': $('h2').html()});
+                localStorage.setItem('flowers', JSON.stringify(get_list));
+            } else {
+                $("#message").html('Вы уже добавляли этот цветок в ваш букет');
+            }
+        }
+        else {
+             var list = [];
+             list.push({'link':location.pathname.split('/')[3], 'flower': $('h2').html()});
+             localStorage.setItem('flowers', JSON.stringify(list));
+        }
+        console.log(localStorage.getItem('flowers'));
+        $("#message").show("slow");
+    });
+});
+</script>
+{% endblock %}

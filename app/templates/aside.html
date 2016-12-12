@@ -1,0 +1,38 @@
+<aside>
+<div class="filter">
+            <p>Фильтр цены:</p>
+
+            <form  method="post">
+
+                <div id="slider-range"></div>
+
+                <input type="text" id="minprice" value={{ minprice }} name="minprice" readonly=""/>грн.
+                -
+                <input type="text" id="maxprice" value={{ maxprice }} name="maxprice" readonly=""/>грн.
+                <select  name="ord">
+                    <option   value="asc">По возрастанию цены</option>
+                    <option {% if orderby == 'desc' %} selected  {% endif %} value="desc" >По убыванию цены</option>
+                </select>
+                <input  type="submit" class = "button" value="Фильтровать">
+
+
+            </form>
+        <div id="amount"></div>
+            </div>
+    <script>
+                        $("#slider-range").slider({
+                            range: true,
+                            min: 0,
+                            max: 150,
+                            values: [ {{ minprice }}, {{ maxprice }} ],
+                            slide: function( event, ui ) {
+                         $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                            $( "#minprice" ).val(ui.values[ 0 ]);
+                            $( "#maxprice" ).val(ui.values[ 1 ]);
+                            }
+                        });
+                        $( "#minprice" ).val( $( "#slider-range" ).slider( "values", 0 ));
+                        $( "#maxprice" ).val(  $( "#slider-range" ).slider( "values", 1 ) );
+
+                    </script>
+</aside>

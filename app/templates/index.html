@@ -1,0 +1,68 @@
+{% extends "head.html" %}
+{% block content %}
+<div id="wrapper2">
+    <div class="card_index"></div>
+
+    <div class="box">
+        <h3>Цветы</h3>
+        <ul class="entry_box ">
+            {% for flower in flowers %}
+            <li class="entry_box "> <a href="#">{{ flower.name }}</a></li>
+            {% endfor %}
+        </ul>
+
+    </div>
+    <div class="box">
+        <h3>Букеты</h3>
+        <ul class="entry_box ">
+            {% for bouquet in bouquets %}
+            <li class="entry_box "> <a href="#">{{ bouquet.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="box">
+        <h3>Комнатные растения</h3>
+        <ul class="entry_box ">
+            {% for houseplant in houseplants %}
+            <li class="entry_box "> <a href="#">{{ houseplant.name }}</a></li>
+            {% endfor %}
+        </ul>
+
+    </div>
+    <div class="box">
+        <h3>Решенные вопросы</h3>
+        <ul class="entry_box ">
+            {% for post in posts_solved[:5] %}
+            <li class="entry_box "> <a href="board/post/{{ post.mongo_id }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    <div class="box">
+        <h3>Нерешенные вопросы</h3>
+        <ul class="entry_box ">
+            {% for post in posts_unsolved[:5] %}
+            <li class="entry_box "> <a href="board/post/{{ post.mongo_id }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+
+    </div>
+    <div class="box">
+        <h3>Новости</h3>
+        <ul class="entry_box ">
+            {% for post in posts_news[:5] %}
+            <li class="entry_box "> <a href="board/post/{{ post.mongo_id }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+
+    </div>
+    <!--
+{% for post in posts %}
+
+    <h2>{{ post[1] }}</h2>
+    <p> {{post[0]}} </p>
+    {% endfor %}
+    </div>
+    -->
+{% endblock %}

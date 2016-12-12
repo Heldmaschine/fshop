@@ -1,0 +1,22 @@
+{% extends "head.html" %}
+{% block content %}
+
+<div id="wrapper2">
+    <div class="w3-panel w3-green ">
+        <h3>{{ post.title }}</h3>
+    </div>
+    <p>{{post.text}}</p>
+    <div class="w3-border-left">
+        <p>Комментарии:</p>
+    </div>
+    <form method="post" id="accept_buy">
+              <label class="w3-label w3-text-green">Ваш комментарий:</label>
+                <textarea class="w3-input" rows="4" name="comment"></textarea>
+             <input type="submit"  value="Оставить комментарий">
+    </form>
+    {% for comment in comments %}
+    <p><b>{{comment.author}}:</b> {{comment.text}}</p>
+    {% endfor %}
+
+</div>
+{% endblock %}

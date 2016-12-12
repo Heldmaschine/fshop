@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }} - flower shop</title>
+  <LINK REL="stylesheet" TYPE="text/css" HREF={{url_for('static', filename="style/style_shop.css")}}>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
+
+
+  <link rel="shortcut icon" href="http://s1.iconbird.com/ico/0912/fugue/w16h161349012465flower.png">
+    <script>
+$('#flat-slider').slider({
+  orientation: 'horizontal',
+  range:       true,
+  values:      [17,67]
+});
+</script>
+</head>
+<body>
+<header>
+  <a href="{{ url_for('index') }}"></a><div class = "logo"></div></a>
+  <ul class="headerMenu">
+    <li class = "headerMenu" ><a  href="{{ url_for('cart') }}" ><i class="material-icons" style="font-size: 15px;">shopping_cart</i></a><br></li>
+    {% if session['logged_in'] %}
+    <li class = "headerMenu" ><a  href="{{ url_for('logout') }}" ><i class="material-icons" style="font-size: 15px;">exit_to_app</i></a></li>
+    <li class = "headerMenu" ><a  href="{{ url_for('your_bouquet') }}" ><i class="material-icons" style="font-size: 15px;">local_florist</i></a></li>
+    <li class = "headerMenu" ><a  href="{{ url_for('user_page') }}" ><i class="material-icons" style="font-size: 15px;">account_circle</i></a></li>
+    {% else %}
+    <li class = "headerMenu" ><a  href="{{ url_for('login_page') }} " >Войти</a></li>
+    <li class = "headerMenu" ><a  href="{{ url_for('register_page') }}" >Регистрация</a></li>
+    {% endif %}
+    <li class = "headerMenu" ><a  href="{{ url_for('board', category = 'all') }}" >Форум и поддержка</a><br></li>
+    <li class = "headerMenu" ><a  href="{{ url_for('flowers', category = 'bouquet') }}" >Букеты</a><br></li>
+    <li class = "headerMenu" ><a  href="{{ url_for('flowers', category = 'houseplants') }}" >Комнатные растения</a><br></li>
+    <li class = "headerMenu" ><a  href="{{ url_for('flowers', category = 'flowers') }}" >Цветы</a><br></li>
+  </ul>
+</header>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% extends "head.html" %}
+{% block content %}
+<div id="wrapper2">
+    <div id="ajax">
+    <table>
+        <th>Цветок</th>
+
+    </table>
+
+    <script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    $(function() {
+    $('a#send').on('click', function() {
+      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+        'storage' :localStorage.getItem('flowers'),
+        'phone': $('input[name="phone"]').val()
+      }, function(data) {
+        if (data.result == true) {
+            $("#result").text('Ожидайте, флорист свяжется с Вами для дальнейшей консультации');
+            $("#ajax").hide(2000);
+        } else {
+            $("#result").text('Что-то пошло не так, но мы работаем над этим');
+        }
+      });
+      return false;
+    });
+  });
+</script>
+    Введите ваш номер мобильного:
+    <input type=text  name='phone'>
+    <a class="w3-btn w3-orange" id='send' href="#">Отправить</a>
+    </div>
+   <span id=result></span>
+
+    <script>
+        $(document).ready(function(){
+            var list = JSON.parse(localStorage.getItem('flowers'));
+            if (list == null) {
+                 $("#result").text('Вы ничего не добавляли в ваш букет. Чтобы добавить цветок в букет, нажмите "Добавить в букет" на странице товара');
+                 $("#ajax").hide();
+            } else
+            {
+            for(i=0; i<list.length; i++) {
+
+                $('table').append('<tr><td><a href=/flowers/item/' + list[i].link + ' >' + list[i].flower + '</a></td></tr>');
+            }
+            $("#mes").html(list);
+            }
+        });
+    </script>
+</div>
+{% endblock %}
