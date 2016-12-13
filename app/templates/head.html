@@ -6,12 +6,12 @@
   <LINK REL="stylesheet" TYPE="text/css" HREF={{url_for('static', filename="style/style_shop.css")}}>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <link rel="stylesheet" href={{url_for('static', filename="style/w3.css")}}>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-  <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+  <script src={{ url_for('static', filename="jquery/jquery.validate.min.js")}} ></script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
+  <link rel="stylesheet" href={{url_for('static', filename="style/jquery-ui.css")}})>
 
 
   <link rel="shortcut icon" href="http://s1.iconbird.com/ico/0912/fugue/w16h161349012465flower.png">
