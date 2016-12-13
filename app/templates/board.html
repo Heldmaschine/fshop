@@ -16,14 +16,13 @@
              <input class="w3-input" type="text" name="title">
               <label class="w3-label w3-text-green">Ваш вопрос:</label>
                 <textarea class="w3-input" rows="4" name="question"></textarea>
-
+                 {% if session['logged_in'] %}
              <input type="submit"  value="Задать вопрос">
+             {% else %}
+             Войдите, чтобы задать вопрос
+             {% endif %}
              </form>
         </div>
-
-    <footer class="w3-container w3-teal">
-      <p>Зайдите, чтобы задать вопрос</p>
-    </footer>
         </div>
     </div>
     <button onclick="document.getElementById('id01').style.display='block'" class="w3-btn">Спросить</button>

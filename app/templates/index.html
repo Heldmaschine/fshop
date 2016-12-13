@@ -7,19 +7,12 @@
         <h3>Цветы</h3>
         <ul class="entry_box ">
             {% for flower in flowers %}
-            <li class="entry_box "> <a href="#">{{ flower.name }}</a></li>
+            <li class="entry_box "> <a href="flowers/item/{{flower.url}} ">{{ flower.name }}</a></li>
             {% endfor %}
         </ul>
 
     </div>
-    <div class="box">
-        <h3>Букеты</h3>
-        <ul class="entry_box ">
-            {% for bouquet in bouquets %}
-            <li class="entry_box "> <a href="#">{{ bouquet.name }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
+
     <div class="box">
         <h3>Комнатные растения</h3>
         <ul class="entry_box ">

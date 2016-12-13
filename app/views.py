@@ -117,7 +117,7 @@ def cart():
             flower.update({'price': int(flower['amount'])*flower['id'][3]})
         if request.method == 'POST':
             for product in json.loads(request.cookies.get('list_to_buy')):
-                db.session.add(Bill(id=product['id'], username=session['username'], delivery_date=request.form['datepicker'],
+                db.session.add(Bill(product_id=product['id'], username=session['username'], delivery_date=request.form['datepicker'],
                                     delivery_place=request.form['address'],bill_date=datetime.date.today(),
                                     amount=product['amount'], debit_card=request.form['debit']))
                 db.session.commit()

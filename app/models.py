@@ -36,15 +36,15 @@ class Category(db.Model):
 
 class Bill(db.Model):
     __table__ = db.Model.metadata.tables['bills']
-    id = __table__.c.id
+    product_id = __table__.c.product_id
     delivery_place = __table__.c.delivery_place
     delivery_date = __table__.c.delivery_date
     bill_date = __table__.c.bill_date
     amount = __table__.c.amount
     debit_card = __table__.c.debit_card
     username = __table__.c.username
-    def init(self, id, username, delivery_date, delivery_place, bill_date, amount, debit_card, delivery_id):
-        self.id = id
+    def init(self, product_id, username, delivery_date, delivery_place, bill_date, amount, debit_card):
+        self.product_id = product_id
         self.username = username
         self.delivery_date = delivery_date
         self.delivery_place = delivery_place
